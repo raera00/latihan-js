@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Sederhana</title>
+</head>
+<body>
+    <h1>Kalkulator Sederhana</h1>
+    <input type="number" id="angka1" placeholder="Masukkan angka pertama">
+    <input type="number" id="angka2" placeholder="Masukkan angka kedua">
+    <select id="operasi">
+        <option value="tambah">Penjumlahan</option>
+        <option value="kurang">Pengurangan</option>
+        <option value="kali">Perkalian</option>
+        <option value="bagi">Pembagian</option>
+    </select>
+    <button onclick="hitung()">Hitung</button>
+    <p id="hasil"></p>
+
+    <script>
+        // Fungsi untuk menghitung hasil berdasarkan operasi
+        function hitung() {
+            try {
+                const angka1 = document.getElementById('angka1').value;
+                const angka2 = document.getElementById('angka2').value;
+                const operasi = document.getElementById('operasi').value;
+
+                // Validasi input kosong
+                if (angka1 === "" || angka2 === "") {
+                    throw new Error("Silakan masukkan kedua angka.");
+                }
+
+                // Mengonversi input ke tipe data number
+                const num1 = parseFloat(angka1);
+                const num2 = parseFloat(angka2);
+
+                // Validasi input bukan angka
+                if (isNaN(num1) || isNaN(num2)) {
+                    throw new Error("Masukkan hanya angka yang valid.");
+                }
+
+                let hasil;
+
+                // Alur kontrol untuk operasi matematika
+                if (operasi === "tambah") {
+                    hasil = num1 + num2;
+                } else if (operasi === "kurang") {
+                    hasil = num1 - num2;
+                } else if (operasi === "kali") {
+                    hasil = num1 * num2;
+                } else if (operasi === "bagi") {
+                    if (num2 === 0) {
+                        throw new Error("Error: Pembagian dengan nol tidak diperbolehkan.");
+                    }
+                    hasil = num1 / num2;
+                } else {
+                    throw new Error("Operasi tidak dikenal.");
+                }
+
+                // Menampilkan hasil perhitungan
+                document.getElementById('hasil').textContent = `Hasil: ${hasil}`;
+
+            } catch (error) {
+                // Menangkap dan menampilkan pesan error
+                document.getElementById('hasil').textContent = `Kesalahan: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
